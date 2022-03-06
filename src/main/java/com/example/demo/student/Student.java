@@ -5,16 +5,19 @@ import java.time.Period;
 
 import javax.persistence.*;
 
-@Entity
-@Table
+@Entity(name = "Student")
+@Table(name = "student", uniqueConstraints = { @UniqueConstraint(name = "student_email_unique", columnNames = "email")})
 public class Student {
 	@Id
 	@SequenceGenerator(name = "student_sequence", sequenceName = "student_sequence", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
-
+	@Column(name = "id", updatable = false)
 	private Long id;
+	@Column(name = "name", nullable = false, columnDefinition = "TEXT")
 	private String name;
+	@Column(name = "email", nullable = false, columnDefinition = "TEXT")
 	private String email;
+	@Column(name = "dob", nullable = false, columnDefinition = "DATE")
 	private LocalDate dob;
 	@Transient
 	private Integer age;
